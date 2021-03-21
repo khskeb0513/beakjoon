@@ -1,8 +1,11 @@
-const readline = require('readline')
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
+let input =
+    // require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
+    ('5\n' +
+    '5 50 50 70 80 100\n' +
+    '7 100 95 90 80 70 60 50\n' +
+    '3 70 90 80\n' +
+    '3 70 90 81\n' +
+    '9 100 99 98 97 96 95 94 93 91').toString().trim().split('\n');
 
 const makeDigitPercentage = (digit) => {
     digit = (digit * 100).toFixed(3)
@@ -28,15 +31,10 @@ const pyeongGyun = async (str) => {
     return makeDigitPercentage(percentage);
 }
 
-let lines = []
-
-rl.on("line", async (str) => {
-    await lines.push(str.toString().trim())
-    await rl.close()
-}).on("close", async () => {
-    lines = await lines.splice(1, lines.length)
-    for (const v of lines) {
+(async () => {
+    input = input.splice(1, input.length)
+    for (const v of input) {
         console.log(await pyeongGyun(v))
     }
     await process.exit()
-})
+})()
